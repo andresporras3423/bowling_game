@@ -40,19 +40,27 @@ class Player
     (0...@scores.length).each do |i|
       current_score = @scores[i].frame == 1 ? 0 : @global_scores[@scores[i].frame - 1]
       if @scores[i].frame < 10
-        if @scores[i].frame < @scores[i + 1].frame
-          @global_scores[@scores[i].frame] = if @scores[i].attempt == 1
-                                               @scores[i].points + @scores[i + 1].points + @scores[i + 2].points + current_score
-                                             elsif @scores[i].attempt == 2 && (@scores[i - 1].points + @scores[i].points == 10)
-                                               @scores[i - 1].points + @scores[i].points + @scores[i + 1].points + current_score
-                                             else
-                                               @scores[i - 1].points + @scores[i].points + current_score
-                                             end
-        end
+        add_global_score_before_frame_10(i, current_score)
       elsif @scores[i].frame == 10 && @scores[i].attempt == 1
-        @global_scores[@scores[i].frame] =
-          @scores[i].points + @scores[i + 1].points + (@scores[i + 2].nil? ? 0 : @scores[i + 2].points) + current_score
+        add_global_score_frame_10(i, current_score)
       end
     end
+  end
+
+  def add_global_score_before_frame_10(index, current_score)
+    if @scores[index].frame < @scores[index + 1].frame
+      @global_scores[@scores[index].frame] = if @scores[index].attempt == 1
+                                               @scores[index].points + @scores[index + 1].points + @scores[index + 2].points + current_score
+                                             elsif @scores[index].attempt == 2 && (@scores[index - 1].points + @scores[index].points == 10)
+                                               @scores[index - 1].points + @scores[index].points + @scores[index + 1].points + current_score
+                                             else
+                                               @scores[index - 1].points + @scores[index].points + current_score
+                                             end
+    end
+  end
+
+  def add_global_score_frame_10(index, current_score)
+    @global_scores[@scores[index].frame] =
+      @scores[index].points + @scores[index + 1].points + (@scores[index + 2].nil? ? 0 : @scores[index + 2].points) + current_score
   end
 end
