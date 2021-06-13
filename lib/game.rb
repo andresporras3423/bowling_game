@@ -27,10 +27,11 @@ class Game
       end
     end
     content_file.close
+    output=[]
     @players.each_value do |player|
-        puts "player name: #{player.name}"
+      puts "Player name: #{player.name}"
       player.scores.each do |score|
-        puts "frame: #{score.frame}, attempt: #{score.attempt}, point: #{score.points}"
+        puts "frame: #{score.frame}, attempt: #{score.attempt}, point: #{score.points}, total score: #{player.global_scores[score.frame]}"
       end
     end
   end

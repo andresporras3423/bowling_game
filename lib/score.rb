@@ -7,4 +7,4 @@ class Score
       @frame = frame
       @attempt = attempt
     end
-  end
+end
