@@ -20,11 +20,18 @@ class Game
         return
       end
       @players[player_name] = Player.new(player_name) if @players[player_name].nil?
-      @players[player_name].scores.push(player_score)
+      message=@players[player_name].add_score(player_score)
+      if message!=""
+        puts message
+        return
+      end
     end
     content_file.close
     @players.each_value do |player|
-      p player.name
+        puts "player name: #{player.name}"
+      player.scores.each do |score|
+        puts "frame: #{score.frame}, attempt: #{score.attempt}, point: #{score.points}"
+      end
     end
   end
 end
