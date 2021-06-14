@@ -17,19 +17,19 @@ class Game
   private
 
   def give_output
-    output ="Frame     1     2     3     4     5     6     7     8     9     10\n"
+    output = "Frame     1     2     3     4     5     6     7     8     9     10\n"
 
     @players.each_value do |player|
-      if(player.global_scores[1]==-1)
+      if player.global_scores[1] == -1
         puts "Incomplete data, #{player.name} hasn't completed its game"
         return
       end
       name = player.name
       pinfalls = print_player_pinfalls(player)
       scores = print_player_score(player)
-      output+= name+"\n"
-      output+= pinfalls+"\n"
-      output+= scores+"\n"
+      output += "#{name}\n"
+      output += "#{pinfalls}\n"
+      output += "#{scores}\n"
     end
     puts output
   end

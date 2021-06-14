@@ -17,8 +17,8 @@ class Player
     if @scores.length.zero?
       @scores.push(Score.new(points, 1, 1))
     elsif @scores[-1].frame <= 9 || (@scores[-1].frame == 9 && (@scores[-1].points == 10 || @score[-1].attempt == 2))
-      message= score_before_ten(points)
-      return message if message!=''
+      message = score_before_ten(points)
+      return message if message != ''
     elsif @scores[-1].frame == 10 && (@scores[-1].attempt == 3 || (@scores[-1].attempt == 2 && @scores[-1].points + @scores[-2].points < 10))
       return "current player didn't have more attempts or frames available"
     else
