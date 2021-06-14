@@ -81,14 +81,12 @@ class Game
 
   def add_line_content(line)
     score_data = line.split(' ')
+    return "Every line should contain two values, the player's name and the pinfalls" if score_data.length!=2
     player_name = score_data[0]
     player_score = @valid_options[score_data[1]]
     return 'Score should be an integer between 1 and 10' if player_score.nil?
 
     @players[player_name] = Player.new(player_name) if @players[player_name].nil?
-    message = @players[player_name].add_score(player_score)
-    return message if message != ''
-
-    ''
+    return @players[player_name].add_score(player_score)
   end
 end
