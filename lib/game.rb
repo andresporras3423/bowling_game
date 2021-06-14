@@ -5,13 +5,13 @@ require_relative 'player'
 class Game
   attr_reader :players
 
-  def initialize(relative_path)
+  def initialize(relative_path, request_output)
     error_message = read_file_content(relative_path)
     if error_message != ''
       puts error_message
       return
     end
-    give_output
+    give_output if request_output
   end
 
   private
