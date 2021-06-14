@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'player'
-
+# Game information
 class Game
   attr_reader :players
 
@@ -11,11 +11,17 @@ class Game
       puts error_message
       return
     end
-    output = []
+    give_output
+  end
+
+  def give_output
     @players.each_value do |player|
       puts "Player name: #{player.name}"
       player.scores.each do |score|
-        puts "frame: #{score.frame}, attempt: #{score.attempt}, point: #{score.points}, total score: #{player.global_scores[score.frame]}"
+        puts "frame: #{score.frame},
+        attempt: #{score.attempt},
+        point: #{score.points},
+        total score: #{player.global_scores[score.frame]}"
       end
     end
   end
@@ -36,9 +42,9 @@ class Game
   end
 
   def add_line_content(line)
-    scoreData = line.split(' ')
-    player_name = scoreData[0]
-    player_score = @valid_options[scoreData[1]]
+    score_data = line.split(' ')
+    player_name = score_data[0]
+    player_score = @valid_options[score_data[1]]
     return 'Score should be an integer between 1 and 10' if player_score.nil?
 
     @players[player_name] = Player.new(player_name) if @players[player_name].nil?
