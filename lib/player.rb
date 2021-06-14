@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'score'
-require 'byebug'
 # player information
 class Player
   attr_reader :name, :global_scores
