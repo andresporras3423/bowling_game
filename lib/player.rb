@@ -9,7 +9,7 @@ class Player
   def initialize(name)
     @name = name
     @scores = []
-    @global_scores = (1..10).map { |n| [n, 0] }.to_h
+    @global_scores = (1..10).map { |n| [n, -1] }.to_h
   end
 
   def add_score(points)
@@ -22,7 +22,7 @@ class Player
     else
       @scores.push(Score.new(points, 10, @scores[-1].frame == 9 ? 1 : @scores[-1].attempt + 1))
     end
-    getter_global_score
+    conditions_global_score
     ''
   end
 
@@ -38,7 +38,7 @@ class Player
     end
   end
 
-  def getter_global_score
+  def conditions_global_score
     if @scores[-1].frame == 10 &&
        (@scores[-1].attempt == 3 || @scores[-1].points + @scores[-2].points < 10)
       global_game_score
