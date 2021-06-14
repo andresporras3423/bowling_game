@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'score'
+require 'byebug'
 # player information
 class Player
   attr_reader :name, :global_scores
@@ -16,7 +17,8 @@ class Player
     if @scores.length.zero?
       @scores.push(Score.new(points, 1, 1))
     elsif @scores[-1].frame <= 9 || (@scores[-1].frame == 9 && (@scores[-1].points == 10 || @score[-1].attempt == 2))
-      score_before_ten(points)
+      message= score_before_ten(points)
+      return message if message!=''
     elsif @scores[-1].frame == 10 && (@scores[-1].attempt == 3 || (@scores[-1].attempt == 2 && @scores[-1].points + @scores[-2].points < 10))
       return "current player didn't have more attempts or frames available"
     else
@@ -36,6 +38,7 @@ class Player
     else
       @scores.push(Score.new(points, @scores[-1].frame + 1, 1))
     end
+    ''
   end
 
   def conditions_global_score
