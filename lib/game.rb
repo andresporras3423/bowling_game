@@ -14,15 +14,37 @@ class Game
     give_output
   end
 
+  private
+
   def give_output
+    puts "Frame     1     2     3     4     5     6     7     8     9     10"
     @players.each_value do |player|
-      puts "Player name: #{player.name}"
-      player.scores.each do |score|
-        puts "frame: #{score.frame},
-        attempt: #{score.attempt},
-        point: #{score.points},
-        total score: #{player.global_scores[score.frame]}"
+      name=player.name
+      pinfalls="Pinfalls"
+      scores="Scores"
+      player.scores.each_with_index do |score, i|
+        pinfalls+= if(score.points<10 && (score.attempt==1 || score.attempt==3))
+          "  #{score.points}"
+        elsif(score.points==10 && score.frame==10) 
+          "  X"
+        elsif(score.points==10) 
+          "     X"
+        elsif(score.points<10 && player.scores[i-1].points+score.points==10)
+          "  /"
+        else
+          "  #{score.points}"
+        end
       end
+      player.global_scores.each do |key, value|
+        scores+= if(key==1)
+          "    #{value}"
+        else
+          (" "*(6-player.global_scores[key-1].to_s.split("").length))+value.to_s
+        end
+      end
+      puts name
+      puts pinfalls
+      puts scores
     end
   end
 
