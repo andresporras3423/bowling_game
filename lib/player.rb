@@ -42,7 +42,8 @@ class Player
 
   def conditions_global_score
     if @scores[-1].frame == 10 &&
-       (@scores[-1].attempt == 3 || @scores[-1].points + @scores[-2].points < 10)
+       (@scores[-1].attempt == 3 ||
+        (@scores[-1].attempt == 2 && @scores[-1].points + @scores[-2].points < 10))
       global_game_score
     end
   end

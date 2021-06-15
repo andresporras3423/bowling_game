@@ -6,6 +6,7 @@ class Game
   attr_reader :players
 
   def initialize(relative_path, request_output)
+    @players = {}
     error_message = read_file_content(relative_path)
     if error_message != ''
       puts error_message
@@ -67,7 +68,6 @@ class Game
   def read_file_content(relative_path)
     @valid_options = (0..10).map { |i| [i.to_s, i] }.to_h
     @valid_options['F'] = 0
-    @players = {}
     absolute_path = File.join(File.dirname(__FILE__), relative_path)
     content_file = File.open(absolute_path)
     files_lines = content_file.read
@@ -81,12 +81,13 @@ class Game
 
   def add_line_content(line)
     score_data = line.split(' ')
-    return "Every line should contain two values, the player's name and the pinfalls" if score_data.length!=2
+    return "Every line should contain two values, the player's name and the pinfalls" if score_data.length != 2
+
     player_name = score_data[0]
     player_score = @valid_options[score_data[1]]
     return 'Score should be an integer between 1 and 10' if player_score.nil?
 
     @players[player_name] = Player.new(player_name) if @players[player_name].nil?
-    return @players[player_name].add_score(player_score)
+    @players[player_name].add_score(player_score)
   end
 end

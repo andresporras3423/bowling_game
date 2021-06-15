@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/game'
 require 'rspec'
 
@@ -37,7 +39,7 @@ RSpec.describe Game do
       (expect do
         Game.new('./../spec/data_test/valid_score1.txt', false)
       end
-      ).to output("").to_stdout
+      ).to output('').to_stdout
     end
   end
 end
