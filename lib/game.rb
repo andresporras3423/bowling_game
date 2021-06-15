@@ -38,7 +38,7 @@ class Game
   def print_player_pinfalls(player)
     pinfalls = 'Pinfalls'
     player.scores.each_with_index do |score, i|
-      pinfalls += if score.points < 10 && (score.attempt == 1 || score.attempt == 3)
+      pinfalls += if score.points < 10 && (score.roll == 1 || score.roll == 3)
                     "  #{score.points}"
                   elsif score.points == 10 && score.frame == 10
                     '  X'
