@@ -18,5 +18,9 @@ RSpec.describe Player do
       20.times { player1.add_score(0) }
       expect(player1.add_score(0)).to eql("current player didn't have more attempts or frames available")
     end
+    it 'test player complete game after scoring 5 in 21 attempts' do
+      20.times { player1.add_score(5) }
+      expect(player1.add_score(5)).to eql('')
+    end
   end
 end
