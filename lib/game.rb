@@ -39,20 +39,37 @@ class Game
 
   def print_player_pinfalls(player)
     pinfalls = 'Pinfalls'
-    player.scores.each_with_index do |score, i|
-      pinfalls += if @@valid_score[score.points] < 10 && (score.roll == 1 || score.roll == 3)
-                    "  #{score.points}"
-                  elsif @@valid_score[score.points] == 10 && score.frame == 10
-                    '  X'
-                  elsif @@valid_score[score.points] == 10
-                    '     X'
-                  elsif @@valid_score[score.points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[score.points] == 10
-                    '  /'
+    (0...player.scores.length).each do |i|
+      pinfalls += if player.scores[i].frame < 10
+                    pinfalls_before_frame_ten(player, i)
                   else
-                    "  #{score.points}"
+                    pinfalls_frame_ten(player, i)
                   end
     end
     pinfalls
+  end
+
+  def pinfalls_before_frame_ten(player, i)
+    if player.scores[i].roll == 1 && @@valid_score[player.scores[i].points] == 10
+      return '     X'
+    elsif @@valid_score[player.scores[i].points] == 10
+      return '  X'
+    elsif player.scores[i].roll == 2 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10
+      return '  /'
+    end
+
+    "  #{player.scores[i].points}"
+  end
+
+  def pinfalls_frame_ten(player, i)
+    if @@valid_score[player.scores[i].points] == 10
+      return '  X'
+    elsif ((player.scores[i].roll == 2 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10) || 
+      (player.scores[i].roll == 3 && @@valid_score[player.scores[i - 2].points] == 10 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10))
+      return '  /'
+    end
+
+    "  #{player.scores[i].points}"
   end
 
   def print_player_score(player)

@@ -78,9 +78,9 @@ class Player
   def accumulate(index, current_score)
     if @scores[index].frame < @scores[index + 1].frame
       @global_scores[@scores[index].frame] =
-      @@valid_score[@scores[index].points] +
+        @@valid_score[@scores[index].points] +
         current_score + if @scores[index].roll == 1
-          @@valid_score[@scores[index + 1].points] + @@valid_score[@scores[index + 2].points]
+                          @@valid_score[@scores[index + 1].points] + @@valid_score[@scores[index + 2].points]
                         elsif @scores[index].roll == 2 && (@@valid_score[@scores[index - 1].points] + @@valid_score[@scores[index].points] == 10)
                           @@valid_score[@scores[index - 1].points] + @@valid_score[@scores[index + 1].points]
                         else
@@ -91,8 +91,8 @@ class Player
 
   def accumulate_frame_ten(index, current_score)
     @global_scores[@scores[index].frame] =
-    @@valid_score[@scores[index].points] +
-    @@valid_score[@scores[index + 1].points] +
+      @@valid_score[@scores[index].points] +
+      @@valid_score[@scores[index + 1].points] +
       (@scores[index + 2].nil? ? 0 : @@valid_score[@scores[index + 2].points]) +
       current_score
   end

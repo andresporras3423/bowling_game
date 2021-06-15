@@ -30,7 +30,7 @@ RSpec.describe Player do
     end
     it 'test player completed game after scoring F in 20 rolls' do
       19.times { player1.add_score('F') }
-      expect(player1.add_score('F')).to eql("")
+      expect(player1.add_score('F')).to eql('')
     end
     it 'test player completed game after scoring 5 in 21 rolls' do
       20.times { player1.add_score('5') }
