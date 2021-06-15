@@ -18,10 +18,9 @@ class Player
     elsif @scores[-1].frame <= 9
       message = score_before_ten(points)
       return message if message != ''
-    elsif @scores[-1].frame == 10 && (@scores[-1].attempt == 3 || (@scores[-1].attempt == 2 && @scores[-1].points + @scores[-2].points < 10))
-      return "current player didn't have more attempts or frames available"
     else
-      @scores.push(Score.new(points, 10, @scores[-1].frame == 9 ? 1 : @scores[-1].attempt + 1))
+      message = score_frame_ten(points)
+      return message if message != ''
     end
     conditions_global_score
     ''
@@ -29,9 +28,21 @@ class Player
 
   private
 
+  def score_frame_ten(points)
+    if @scores[-1].frame == 10 && (@scores[-1].attempt == 3 || (@scores[-1].attempt == 2 && @scores[-1].points + @scores[-2].points < 10))
+      return "current player didn't have more attempts or frames available"
+    elsif @scores[-1].attempt == 1 && @scores[-1].points<10 && @scores[-1].points+points>10
+      return 'On the tenth frame, first and second attempt cannot surpass 10 points unless the first attempt were a strike'
+    elsif @scores[-1].attempt == 2 && @scores[-2].points==10 && @scores[-1].points<10 && @scores[-1].points+points>10
+      return 'On the tenth frame, second and third attempt cannot surpass 10 points when the first attempt was a strike but the second was not a strike'
+    end
+    @scores.push(Score.new(points, 10, @scores[-1].attempt + 1))
+    return ""
+  end
+
   def score_before_ten(points)
     if @scores[-1].attempt == 1 && @scores[-1].points < 10
-      return 'two attempts in the same frame cannot surpass the 10 points' if @scores[-1].points + points > 10
+      return 'Before frame 10, two attempts in the same frame cannot surpass the 10 points' if @scores[-1].points + points > 10
 
       @scores.push(Score.new(points, @scores[-1].frame, 2))
     else
