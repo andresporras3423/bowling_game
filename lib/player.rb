@@ -68,14 +68,14 @@ class Player
     (0...@scores.length).each do |i|
       current_score = @scores[i].frame == 1 ? 0 : @global_scores[@scores[i].frame - 1]
       if @scores[i].frame < 10
-        accumulate(i, current_score)
+        accumulate_before_frame_ten(i, current_score)
       elsif @scores[i].frame == 10 && @scores[i].roll == 1
         accumulate_frame_ten(i, current_score)
       end
     end
   end
 
-  def accumulate(index, current_score)
+  def accumulate_before_frame_ten(index, current_score)
     if @scores[index].frame < @scores[index + 1].frame
       @global_scores[@scores[index].frame] =
         @@valid_score[@scores[index].points] +

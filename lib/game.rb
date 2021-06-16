@@ -64,8 +64,8 @@ class Game
   def pinfalls_frame_ten(player, i)
     if @@valid_score[player.scores[i].points] == 10
       return '  X'
-    elsif ((player.scores[i].roll == 2 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10) || 
-      (player.scores[i].roll == 3 && @@valid_score[player.scores[i - 2].points] == 10 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10))
+    elsif (player.scores[i].roll == 2 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10) ||
+          (player.scores[i].roll == 3 && @@valid_score[player.scores[i - 2].points] == 10 && @@valid_score[player.scores[i - 1].points] < 10 && @@valid_score[player.scores[i - 1].points] + @@valid_score[player.scores[i].points] == 10)
       return '  /'
     end
 
