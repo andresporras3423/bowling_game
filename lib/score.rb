@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# score information
 class Score
   attr_reader :points, :frame, :roll
 

@@ -2,7 +2,6 @@
 
 require_relative 'score'
 require_relative 'valid_score'
-# player information
 class Player
   include ValidScore
   attr_reader :name, :global_scores

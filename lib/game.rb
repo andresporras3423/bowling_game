@@ -2,7 +2,6 @@
 
 require_relative 'player'
 require_relative 'valid_score'
-# Game information
 class Game
   include ValidScore
   attr_reader :players
