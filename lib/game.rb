@@ -93,6 +93,8 @@ class Game
     end
     content_file.close
     ''
+  rescue StandardError => e
+    e
   end
 
   def add_line_content(line)

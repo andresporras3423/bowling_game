@@ -35,6 +35,12 @@ RSpec.describe Game do
       end
       ).to output("Every line should contain two values, the player's name and the pinfalls\n").to_stdout
     end
+    it 'return error message when nonexistent file' do
+      (expect do
+        Game.new('./../spec/data_test/nonexistent.txt', false)
+      end
+      ).to output(/^(No such file or directory)/).to_stdout
+    end
     it 'test valid data' do
       (expect do
         Game.new('./../spec/data_test/valid_score1.txt', false)
